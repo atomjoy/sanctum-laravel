@@ -264,9 +264,11 @@ Route::middleware(['auth:web,sanctum', 'sanctum_web'])
     ->name('api.')
     ->group(function () {
     Route::get('/user', function (Request $request) {
-            // Only user
+            // Only admin required without sanctum_web middleware
             if (! Auth::user() instanceof User) {
-                throw new \Exception("Forbidden.", 403);
+                return response()->json([
+                    'message' => 'Forbidden.',
+                ], 403);
             }
 
             return response()->json([
@@ -281,9 +283,11 @@ Route::middleware(['auth:admin,sanctum', 'sanctum_admin'])
     ->name('api.admin.')
     ->group(function () {
     Route::get('/admin/user', function (Request $request) {
-            // Only admin
+            // Only admin required without sanctum_admin middleware
             if (! Auth::user() instanceof Admin) {
-                throw new \Exception("Forbidden.", 403);
+                return response()->json([
+                    'message' => 'Forbidden.',
+                ], 403);
             }
 
             return response()->json([
