@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Admin extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<\Database\Factories\AdminFactory> */
     use HasFactory, Notifiable;
     use HasApiTokens;
 
@@ -20,6 +20,13 @@ class Admin extends Authenticatable
      * @var string
      */
     protected $guard = 'admin';
+
+    /**
+     * Default table name
+     *
+     * @var string
+     */
+    protected $table = 'admins';
 
     /**
      * The attributes that are mass assignable.
